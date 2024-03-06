@@ -50,22 +50,36 @@ void blur_kernel(sycl::accessor<Vec3b, 1, sycl::access::mode::read_write, sycl::
 
 // Program execution
 int main() {
-    cout << "NOTE: please insert a .jpg image file with the name of 'input_image'" << endl;
+    cout << "AUTHOR: George Ntolias" << endl;
 
     // Load colored image using OpenCV
+    /* 
+        1. Instantiate and enter filename from user input
+        2. Create image array of the input file
+        3. Determine file extension based on user input
+    */
     string filename;
     cout << "Please insert the FULL filename of the image you want to blur (.jpg OR .png) --> ";
     cin >> filename;
 
+    // Checks whether the user appends a valid filename and extension (.png, .jpg)
     Mat input_image;
-    string extension = filename.substr(filename.length() - 4);
-    if (extension == ".jpg" || extension == ".png") {
-        input_image = imread(filename);
+    string extension;
+    if (filename.length() >= 4) {
+        extension = filename.substr(filename.length() - 4);
+        if (extension == ".jpg" || extension == ".png") {
+            input_image = imread(filename);
+        }
+        else {
+            cerr << "ERROR: Unsupported image file format! (Supported formats: .jpg, .png)" << endl;
+            return 1;
+        }
     }
     else {
-        cerr << "ERROR: Unsupported image file format! (Supported formats: .jpg, .png)" << endl;
-        return 1;
+        cerr << "ERROR: Name or Extension of image file not found!" << endl;
+        return 2;
     }
+    
     cout << "Input Image (input_image) read successfully!" << endl;
 
     // Initialize column and row number based on image's height and width

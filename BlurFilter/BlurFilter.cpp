@@ -111,7 +111,7 @@ int main() {
         }
     }
     else {
-        cerr << "ERROR: Filename length too long! (>256 chars)" << endl;
+        cerr << "ERROR: Full filename length invalid! (filename must be between 4-255 chars)" << endl;
         return 4;
     }
     cout << "Input Image (input_image) read successfully!" << endl;

@@ -80,10 +80,13 @@ int main() {
     // Instantiate image array of user file
     Mat input_image;
 
+    // Create vector with some supported image extensions
     vector<string> supported_extensions = { ".jpg", ".png", ".bmp", ".jpeg", ".tiff" };
+    
+    // Convert user extension to lower-case (case-insensitive user-input)
     transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
 
-    // Iterate over each extension to check if filename can be blurred
+    // Iterate over each extension to check if file extension of user-input is supported
     if (file_name.length() >= 4 && file_name.length() < 256) {
         bool is_supported = false;
         for (const string& user_ext : supported_extensions) {
@@ -93,6 +96,7 @@ int main() {
             }
         }
         if (is_supported) {
+            // Check whether the filename (including the supported extension) exists at all, based on user-input
             if (std::filesystem::exists(file_name)) {
                 input_image = imread(file_name);
             }

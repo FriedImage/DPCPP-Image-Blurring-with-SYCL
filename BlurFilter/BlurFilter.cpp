@@ -168,8 +168,8 @@ int main() {
     string result;
     cout << "Please name the result blurred image --> ";
     cin >> result;
-    if (result.empty()) {
-        cout << "Name invalid, using default filename 'blurred_image' instead" << endl;
+    if (result.empty() || result.length() > 255) {
+        cout << "Invalid name, using default filename 'blurred_image' instead" << endl;
         result = "blurred_image";
     }
     else {

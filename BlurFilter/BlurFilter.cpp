@@ -53,12 +53,20 @@ int main() {
     cout << "NOTE: please insert a .jpg image file with the name of 'input_image'" << endl;
 
     // Load colored image using OpenCV
-    Mat input_image = imread("input_image.jpg");
-    if (input_image.empty()) {
-        cerr << "ERROR: Failed to find/load image!" << endl;
+    string filename;
+    cout << "Please insert the FULL filename of the image you want to blur (.jpg OR .png) --> ";
+    cin >> filename;
+
+    Mat input_image;
+    string extension = filename.substr(filename.length() - 4);
+    if (extension == ".jpg" || extension == ".png") {
+        input_image = imread(filename);
+    }
+    else {
+        cerr << "ERROR: Unsupported image file format! (Supported formats: .jpg, .png)" << endl;
         return 1;
     }
-    cout << "input_image read successfully!" << endl;
+    cout << "Input Image (input_image) read successfully!" << endl;
 
     // Initialize column and row number based on image's height and width
     int width = input_image.cols;
@@ -109,17 +117,17 @@ int main() {
     cvtColor(input_image, input_image, COLOR_BGR2RGB);
 
     // Save blurred image with user input for image name
-    String result;
+    string result;
     cout << "Please name the result blurred image --> ";
     cin >> result;
     if (result.empty()) {
         cout << "Name invalid, using filename 'blurred_image' instead" << endl;
-        result = "blurred_image.jpg";
+        result = "blurred_image";
     }
     else {
-        result = result + ".jpg";
+        result += extension;
     }
-    imwrite(result, input_image); // Move temporary blurred input_image to a new file (name: [result].jpg)
+    imwrite(result, input_image); // Move temporary blurred input_image to a new file (example: [result].jpg)
 
     // Display the result
     cout << "Press any key in image window to close it" << endl;

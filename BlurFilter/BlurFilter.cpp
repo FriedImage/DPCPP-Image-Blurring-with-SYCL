@@ -58,17 +58,17 @@ int main() {
         2. Create image array of the input file
         3. Determine file extension based on user input
     */
-    string filename;
+    string file_name;
     cout << "Please insert the FULL filename of the image you want to blur (.jpg OR .png) --> ";
-    cin >> filename;
+    cin >> file_name;
 
     // Checks whether the user appends a valid filename and extension (.png, .jpg)
     Mat input_image;
     string extension;
-    if (filename.length() >= 4) {
-        extension = filename.substr(filename.length() - 4);
+    if (file_name.length() >= 4 && file_name.length() < 256) {
+        extension = file_name.substr(file_name.length() - 4);
         if (extension == ".jpg" || extension == ".png") {
-            input_image = imread(filename);
+            input_image = imread(file_name);
         }
         else {
             cerr << "ERROR: Unsupported image file format! (Supported formats: .jpg, .png)" << endl;
@@ -79,7 +79,6 @@ int main() {
         cerr << "ERROR: Name or Extension of image file not found!" << endl;
         return 2;
     }
-    
     cout << "Input Image (input_image) read successfully!" << endl;
 
     // Initialize column and row number based on image's height and width
@@ -135,7 +134,7 @@ int main() {
     cout << "Please name the result blurred image --> ";
     cin >> result;
     if (result.empty()) {
-        cout << "Name invalid, using filename 'blurred_image' instead" << endl;
+        cout << "Name invalid, using default filename 'blurred_image' instead" << endl;
         result = "blurred_image";
     }
     else {

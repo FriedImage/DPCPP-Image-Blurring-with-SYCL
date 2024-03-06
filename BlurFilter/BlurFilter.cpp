@@ -1,6 +1,7 @@
 // Library includes
 #include <CL/sycl.hpp>
 #include <opencv2/opencv.hpp>
+#include <filesystem>
 
 // Namespace shortcuts
 using namespace cv;
@@ -55,29 +56,59 @@ int main() {
     // Load colored image using OpenCV
     /* 
         1. Instantiate and enter filename from user input
-        2. Create image array of the input file
-        3. Determine file extension based on user input
+        2. Determine if user added a file extension
+        3. Create image array of the input file
+        4. Determine whether user added a supported image file extension
+        5. Determine whether user's complete filename exists or not
+        6. Read input_image from user
     */
     string file_name;
-    cout << "Please insert the FULL filename of the image you want to blur (.jpg OR .png) --> ";
+    cout << "Please insert the name (with file extension) of the image file you want to blur --> ";
     cin >> file_name;
 
-    // Checks whether the user appends a valid filename and extension (.png, .jpg)
-    Mat input_image;
+    // Instantiate extension and check whether there is one from user-input
     string extension;
+    size_t extension_dot_pos = file_name.find_last_of('.');
+    if (extension_dot_pos != string::npos && extension_dot_pos < file_name.length()) {
+        extension = file_name.substr(extension_dot_pos);
+    }
+    else {
+        cerr << "ERROR: File extension not found!" << endl;
+        return 1;
+    }
+
+    // Instantiate image array of user file
+    Mat input_image;
+
+    vector<string> supported_extensions = { ".jpg", ".png", ".bmp", ".jpeg", ".tiff" };
+    transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+
+    // Iterate over each extension to check if filename can be blurred
     if (file_name.length() >= 4 && file_name.length() < 256) {
-        extension = file_name.substr(file_name.length() - 4);
-        if (extension == ".jpg" || extension == ".png") {
-            input_image = imread(file_name);
+        bool is_supported = false;
+        for (const string& user_ext : supported_extensions) {
+            if (user_ext == extension) {
+                is_supported = true;
+                break;
+            }
+        }
+        if (is_supported) {
+            if (std::filesystem::exists(file_name)) {
+                input_image = imread(file_name);
+            }
+            else {
+                cerr << "ERROR: Filename with supported extension not found!" << endl;
+                return 2;
+            }
         }
         else {
-            cerr << "ERROR: Unsupported image file format! (Supported formats: .jpg, .png)" << endl;
-            return 1;
+            cerr << "ERROR: Unsupported image file format! (Supported formats: .jpg, .png, .bmp, .jpeg, .tiff)" << endl;
+            return 3;
         }
     }
     else {
-        cerr << "ERROR: Name or Extension of image file not found!" << endl;
-        return 2;
+        cerr << "ERROR: Filename length too long! (>256 chars)" << endl;
+        return 4;
     }
     cout << "Input Image (input_image) read successfully!" << endl;
 
@@ -93,8 +124,8 @@ int main() {
 
     // Accept input as long as its above 0
     if (blur_radius <= 0) {
-        cerr << "ERROR: Blur radius must be greater than 0, image will stay the same." << endl;
-        return 2;
+        cerr << "ERROR: Blur radius must be greater than 0, input image will stay the same." << endl;
+        return 5;
     }
 
     // Convert the input image to the BGR format (required by OpenCV)

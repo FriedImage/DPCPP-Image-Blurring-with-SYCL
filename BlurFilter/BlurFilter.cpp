@@ -179,6 +179,8 @@ int main() {
 
     // Display the result
     cout << "Press any key in image window to close it" << endl;
+    namedWindow("Blurred Image", WINDOW_NORMAL);
+    setWindowProperty("Blurred Image", WND_PROP_FULLSCREEN, WINDOW_NORMAL);
     imshow("Blurred Image", input_image);
     waitKey(0);
 

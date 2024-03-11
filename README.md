@@ -29,4 +29,5 @@
 
 ## Final Thoughts
 
+- With the development of this and more implementations to come, I want to expand my knowledge on parallel computing. My personal objective is the continuous study of the subject of parallel computation, thereby becoming more knowledgable of the HPC science and of aspects that constitute it.
 - While this implementation is part of my studying progress and possibly ***VERY UNSTABLE***, I believe it's a good start on getting to know SYCL's mission to provide an open-source portable standard in High-Performance Computing.

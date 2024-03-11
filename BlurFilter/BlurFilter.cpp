@@ -149,7 +149,7 @@ int main() {
     // Initialize second unique queue for blur kernel execution
     sycl::queue blur_q;
 
-    // Allocate buffer for input image
+    // Allocate buffer for input image to use in blur_kernel function
     sycl::buffer<Vec3b, 1> image_buffer(reinterpret_cast<Vec3b*>(input_image.data), sycl::range<1>(width * height));
 
     // Execute blur kernel through queue and selected device, repeat process in-parallel

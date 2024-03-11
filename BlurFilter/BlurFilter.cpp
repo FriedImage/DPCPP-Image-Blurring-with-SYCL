@@ -135,22 +135,25 @@ int main() {
     // Convert the input image to the BGR format (required by OpenCV)
     cvtColor(input_image, input_image, COLOR_RGB2BGR);
 
-    // Initialize queue and Device Selector(s) to run kernel on device (GPU kernel works on Linux)
-    sycl::queue q;
+    // Initialize first unique queue for Device Selection to run kernel function on device (GPU device selection works on Linux)
+    sycl::queue device_selection_q;
     if (sycl::device::get_devices(sycl::info::device_type::gpu).empty()) {
         // No GPU device available, fall back to default selector
-        q = sycl::queue(sycl::default_selector_v);
+        device_selection_q = sycl::queue(sycl::default_selector_v);
     }
     else {
         // Use GPU selector
-        q = sycl::queue(sycl::gpu_selector_v);
+        device_selection_q = sycl::queue(sycl::gpu_selector_v);
     }
+
+    // Initialize second unique queue for blur kernel execution
+    sycl::queue blur_q;
 
     // Allocate buffer for input image
     sycl::buffer<Vec3b, 1> image_buffer(reinterpret_cast<Vec3b*>(input_image.data), sycl::range<1>(width * height));
 
     // Execute blur kernel through queue and selected device, repeat process in-parallel
-    q.submit([&](sycl::handler& h) {
+    blur_q.submit([&](sycl::handler& h) {
         auto image_accessor = image_buffer.get_access<sycl::access::mode::read_write>(h);
         h.parallel_for(sycl::range<1>(width * height), [=](sycl::id<1> idx) {
             blur_kernel(image_accessor, width, height, idx, blur_radius); // Blur radius required from user input
@@ -158,7 +161,7 @@ int main() {
         });
 
     // Copy data back to host
-    q.wait();
+    blur_q.wait();
     cout << "Blur of radius " << blur_radius << " done!" << endl;
 
     // Convert the processed image back to the RGB format from BGR to the original

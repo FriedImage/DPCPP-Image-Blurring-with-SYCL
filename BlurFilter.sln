@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlurFilter", "BlurFilter\BlurFilter.vcxproj", "{FA059EA4-BE61-43F2-BF74-8B769B03BCC9}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DPC++ BlurFilter App", "DPC++ BlurFilter App\DPC++ BlurFilter App.vdproj", "{84D9434A-FDD9-4A0C-B9C6-E209C267688B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,8 @@ Global
 		{FA059EA4-BE61-43F2-BF74-8B769B03BCC9}.Debug|x64.Build.0 = Debug|x64
 		{FA059EA4-BE61-43F2-BF74-8B769B03BCC9}.Release|x64.ActiveCfg = Release|x64
 		{FA059EA4-BE61-43F2-BF74-8B769B03BCC9}.Release|x64.Build.0 = Release|x64
+		{84D9434A-FDD9-4A0C-B9C6-E209C267688B}.Debug|x64.ActiveCfg = Debug
+		{84D9434A-FDD9-4A0C-B9C6-E209C267688B}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

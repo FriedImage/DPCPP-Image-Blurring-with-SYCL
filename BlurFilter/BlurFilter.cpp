@@ -2,6 +2,9 @@
 #include <CL/sycl.hpp>
 #include <opencv2/opencv.hpp>
 #include <filesystem>
+#include <iostream>
+#include <thread>
+#include <chrono>
 
 // Namespace shortcuts
 using namespace cv;
@@ -74,6 +77,9 @@ int main() {
     }
     else {
         cerr << "ERROR: File extension not found!" << endl;
+
+        // Sleep for 2 seconds
+        this_thread::sleep_for(std::chrono::seconds(2));
         return 1;
     }
 
@@ -102,16 +108,25 @@ int main() {
             }
             else {
                 cerr << "ERROR: Filename with supported extension not found!" << endl;
+
+                // Sleep for 2 seconds
+                this_thread::sleep_for(std::chrono::seconds(2));
                 return 2;
             }
         }
         else {
             cerr << "ERROR: Unsupported image file format! (Supported formats: .jpg, .png, .bmp, .jpeg, .tiff)" << endl;
+
+            // Sleep for 2 seconds
+            this_thread::sleep_for(std::chrono::seconds(2));
             return 3;
         }
     }
     else {
         cerr << "ERROR: Full filename length invalid! (filename must be between 4-255 chars)" << endl;
+
+        // Sleep for 2 seconds
+        this_thread::sleep_for(std::chrono::seconds(2));
         return 4;
     }
     cout << "Input Image (input_image) read successfully!" << endl;
@@ -129,6 +144,9 @@ int main() {
     // Accept input as long as its above 0
     if (blur_radius <= 0) {
         cerr << "ERROR: Blur radius must be greater than 0, input image will stay the same." << endl;
+
+        // Sleep for 2 seconds
+        this_thread::sleep_for(std::chrono::seconds(2));
         return 5;
     }
 

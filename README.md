@@ -4,6 +4,19 @@
 
 # DPC++ BlurFilter App  
 
+## Table of Contents  
+
+- [About the project](#about-the-project)
+- [What does it do?](#what-does-it-do)
+- [Purpose/Goals of implementation](#purposegoals-of-implementation)
+- [Installation Steps](#installation-steps)
+    - [DPC++ and SYCL Integration](#dpc-and-sycl-integration)
+    - [Library Installation](#library-installation)
+    - [(OPTIONAL) Create .msi setup file with dependencies](https://github.com/FriedImage/DPCPP-Image-Blurring-with-SYCL?tab=readme-ov-file#optional-create-msi-setup-file-with-dependencies)
+    - [(OPTIONAL) Program execution using Intel OneAPI Command Prompt for Visual Studio 2022](#optional-program-execution-using-intel-oneapi-command-prompt-for-visual-studio-2022)
+- [Limitations](#limitations)
+- [Final Thoughts](#final-thoughts)
+
 ## About the project  
 
 - This project was created as a DPC++ SYCL Implementation for my Thesis project **(GPU Programming with DPC++)**. 
@@ -24,9 +37,9 @@
     2. **Parallel Data Management**. With Parallel Data Management, we achieve low latency-high throughput of the host and accelerator devices **overall**, while a classic serialized approach (eg. using pure C++), there are times of unwanted idleness.
     3. **SYCL's Ease of Use**. Finally, knowing that parallelizing a program becomes difficult in many cases, SYCL helps combat this problem by providing high-level programming structures that are equivalent to low-level ones.
 
-## Installation Steps
+## Installation Steps  
 
-### DPC++ and SYCL Integration
+### DPC++ and SYCL Integration  
 
 - Using the link below ("<a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=window&distributions=offline" target="_blank">Intel oneAPI Install</a>") and selecting the text ***"Continue without signing up"***, following the on-screen installation instructions, **being cautious** of the below specific features. 
     1. **Version**. Intel® oneAPI Base Toolkit for Windows* (64-bit) – 2024.0.1.45
@@ -52,16 +65,20 @@
     1. Right click on the already modified Setup project, then build.
     2. The setup.msi file is located at "DPC++ BlurFilter App\Release".
 
-### (OPTIONAL) Program execution using Intel OneAPI Command Prompt for Visual Studio 2022
+### (OPTIONAL) Program execution using Intel OneAPI Command Prompt for Visual Studio 2022  
 
 - To run the application without Setup, through the Intel OneAPI terminal, the following steps are mentioned.
     1. Open Intel OneAPI Command Prompt for Visual Studio 2022.
     2. Paste following command to run .exe file. ***May vary, depending on the path of the installed Project***. (“`C:\Program Files (x86)\Intel\oneAPI>C:\Users\ntoli\source\repos\DPCPP\BlurFilter\x64\Release\BlurFilter.exe`”)
 
-## Limitations
+## Limitations  
 - **Lack of administrator privileges in special directories**. In case the program setup is installed in a path that requires special rights to edit files, the program shows the result of blurring, but in an unsaved state. To address the above problem, it is required that administrator rights must be given when the program is run by the user. **Alternatively**, it can be installed in a different path.
 
 ## Final Thoughts  
 
 - With the development of this and more implementations to come, I want to expand my knowledge on parallel computing. My personal objective is the continuous study of the subject of parallel computation, thereby becoming more knowledgable of the HPC science and of aspects that constitute it.
 - While this implementation is part of my studying progress and possibly ***VERY UNSTABLE***, I believe it's a good start on getting to know SYCL's mission to provide an open-source portable standard in High-Performance Computing.
+
+<a href="#dpc-blurfilter-app">
+    <p align="center"><b>Back to top</b></p>
+</a>

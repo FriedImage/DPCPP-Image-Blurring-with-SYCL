@@ -4,6 +4,11 @@
 
 # DPC++ BlurFilter App  
 
+## Important Note: 
+
+- To build the project correctly, please select the "Release" & "x64" configuration in order to avoid OpenCV library errors.
+- If still encountering errors, take a look at the **Library Installation** content of this readme, thanks!
+
 ## Table of Contents  
 
 - [About the project](#about-the-project)

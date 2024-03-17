@@ -28,7 +28,7 @@ void blur_kernel(sycl::accessor<Vec3b, 1, sycl::access::mode::read_write, sycl::
         int x = index % width; // col number x is found by pixel % total width
         int y = index / width; // row number y is found by pixel / total width
 
-        // Apply box blur filter for each color channel (c: RGB)
+        // Apply box blur filter for each color channel (c: BGR)
         for (int c = 0; c < 3; ++c) {
             int sum = 0;
             int count = 0;
